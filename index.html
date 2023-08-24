@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag & Drop</title>
+    <link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div class="box">
+        <label for="input-file" id="drop-area">
+            <input type="file" accept="image/*" id="input-file" hidden>
+            <div id="img-view">
+                <img src="/undraw_Upload_re_pasx.png" alt="">
+                <p>Drag & Drop (or) click here <br> to upload images </p>
+                <span>Upload images from Desktop</span> <br>
+                <span>Created by, Murali Dharan S</span>
+            </div>
+        </label>
+
+        
+    </div>
+
+
+    <script>
+        const dropArea = document.getElementById("drop-area");
+        const inputFile = document.getElementById("input-file");
+        const imageView = document.getElementById("img-view");
+
+        inputFile.addEventListener("change", uploadImage);
+
+        function uploadImage(){
+                let imgLink = URL.createObjectURL(inputFile.files[0]);
+                imageView.style.backgroundImage = `url(${imgLink})`;
+                imageView.textContent = "";
+                imageView.style.border = 0;
+
+        }
+        dropArea.addEventListener("dragover", function(a){
+            a.preventDefault();
+        });
+        dropArea.addEventListener("drop", function(a){
+            a.preventDefault();
+            inputFile.files = a.dataTransfer.files;
+            uploadImage();
+        });
+        dropArea.ondragover = function(){
+           dropArea.style.backgroundColor = "rgb(0, 211, 0)";
+           imageView.style.border = "2px solid grey";
+        }
+        dropArea.ondragleave = function(){
+           dropArea.style.backgroundColor = "white";
+           imageView.style.border = "2px dashed grey";
+        }
+    </script>
+
+    
+        
+    
+</body>
+</html>
